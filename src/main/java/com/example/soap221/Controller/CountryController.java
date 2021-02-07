@@ -1,8 +1,8 @@
 package com.example.soap221.Controller;
 
-import com.example.soap221.CountryRepository;
 import com.example.soap221.GetCountryRequest;
 import com.example.soap221.GetCountryResponse;
+import com.example.soap221.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;

@@ -1,12 +1,17 @@
 package com.example.soap221.model;
 
+import org.springframework.data.aerospike.mapping.Document;
+import org.springframework.data.aerospike.mapping.Field;
 import org.springframework.data.annotation.Id;
 
+@Document
 public class User {
 
     @Id
     private Integer id;
+    @Field
     private String name;
+    @Field
     private Long salary;
 
     public Integer getId() {
