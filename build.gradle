@@ -1,0 +1,77 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+configurations {
+    jaxb
+}
+
+bootJar {
+    archiveBaseName = 'soap221.example.com'
+    archiveVersion =  '0.1.0'
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+task genJaxb {
+    ext.sourcesDir = "src/main/java"
+    ext.schema = "src/main/resources/countries.xsd"
+
+    outputs.dir sourcesDir
+
+    doLast() {
+        project.ant {
+            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
+                    classpath: configurations.jaxb.asPath
+            mkdir(dir: sourcesDir)
+
+            xjc(destdir: sourcesDir, schema: schema) {
+                arg(value: "-wsdl")
+                produces(dir: sourcesDir, includes: "**/*.java")
+            }
+        }
+    }
+}
+
+compileJava.dependsOn genJaxb
+
+dependencies {
+    compile group: 'com.aerospike', name: 'aerospike-client', version: '5.0.3'
+    compile group: 'com.aerospike', name: 'spring-data-aerospike', version: '2.4.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services'
+    implementation 'wsdl4j:wsdl4j'
+    jaxb("org.glassfish.jaxb:jaxb-xjc")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
