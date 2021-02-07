@@ -1,9 +1,8 @@
-package com.example.soap221.config;
+package com.example.soap221;
 
 
 import com.aerospike.client.AerospikeClient;
 import com.aerospike.client.policy.ClientPolicy;
-import com.example.soap221.repository.UserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScanner;
 import org.springframework.context.ApplicationContext;
